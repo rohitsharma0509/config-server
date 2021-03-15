@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: address-lookup-service
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: select PROP_KEY, PROP_VALUE from rider_configuration.PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 1
+  profiles:
+    active:
+      - jdbc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rider_configuration
+    username: root
+    password: root
+    initialization-mode: never
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: update
+
+server:
+  port: 8082
